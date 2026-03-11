@@ -1,0 +1,22 @@
+h1 {
+    font-weight: bold;
+    font-size: 3vw;
+}
+
+#div-imagen-notebook {
+    text-align: center;
+}
+
+#imagen-notebook {
+    border: 4px solid gray;
+}
+
+.caracteristica {
+    font-family: cursive;
+}
+
+.caja {
+    border: 4px solid gray;
+    margin: 2vh;
+    padding: 10px;
+}
