@@ -4,65 +4,111 @@
     <meta charset="UTF-8">
     <title>Notebook Lenovo</title>
     <link rel="stylesheet" href="notebook.css">
+
+    <style>
+        #contenedor-principal {
+            display: grid;
+            grid-template-columns: 30% 30% auto;
+            grid-gap: 2%;
+            justify-content: stretch;
+            grid-template-areas:
+                    "titulo titulo titulo"
+            "imagen imagen descripcion"
+            "imagen imagen boton-comprar"
+        "feedback feedback feedback"
+        }
+
+        #titulo {
+            grid-area: titulo;
+        }
+
+        #div-imagen-notebook {
+            grid-area: imagen;
+            width: 100%;
+            height: 100%;
+        }
+
+        #descripcion {
+            grid-area: descripcion;
+        }
+
+        #boton-comprar {
+            grid-area: boton-comprar;
+        }
+
+        #feedback {
+            grid-area: feedback;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Notebook Lenovo S310</h1>
+<div id="contenedor-principal">
 
-<div id="div-imagen-notebook">
-    <img id="imagen-notebook" class="caja" src="https://http2.mlstatic.com/D_NQ_NP_969068-MLA99934820319_112025-O.webp"
-         alt="Notebook Lenovo S310">
+    <h1 id="titulo">Notebook Lenovo S310</h1>
+
+    <div id="div-imagen-notebook">
+        <img id="imagen-notebook" class="caja"
+             src="https://http2.mlstatic.com/D_NQ_NP_969068-MLA99934820319_112025-O.webp"
+             alt="Notebook Lenovo S310">
+    </div>
+
+    <div class="caja" id="descripcion">
+        <p>Una notebook pensada para el trabajo y bla bla bla</p>
+
+        <p>Características</p>
+        <ul>
+            <li class="caracteristica">Procesador Intel Core i5</li>
+            <li class="caracteristica">Memoria RAM 16 GB</li>
+        </ul>
+
+        <a href="https://www.lenovo.com">Página oficial lenovo</a>
+
+        <p>Precio: <i>$1.000.000</i></p>
+
+    </div>
+
+    <div class="caja" id="boton-comprar">
+        <button>Comprar</button>
+    </div>
+
+    <div class="caja" id="feedback">
+        <form action="/submit-notebook" method="post">
+            <label id="comentario">
+                Comentario:
+                <textarea name="comentario" placeholder="Ingrese su comentario" required></textarea>
+            </label>
+
+            <div id="puntacion">
+                <label>
+                    1 <input type="radio" name="puntuacion" value="1">
+                </label>
+
+                <label>
+                    2 <input type="radio" name="puntuacion" value="2">
+                </label>
+
+                <label>
+                    3 <input type="radio" name="puntuacion" value="3">
+                </label>
+
+                <label>
+                    4 <input type="radio" name="puntuacion" value="4">
+                </label>
+
+                <label>
+                    5 <input type="radio" name="puntuacion" value="5">
+                </label>
+
+            </div>
+
+            <div id="boton-comentario">
+                <input  type="submit" value="Enviar comentario">
+            </div>
+
+        </form>
+    </div>
+
 </div>
-
-<div class="caja">
-    <p>Una notebook pensada para el trabajo y bla bla bla</p>
-
-    <p>Características</p>
-    <ul>
-        <li class="caracteristica">Procesador Intel Core i5</li>
-        <li class="caracteristica">Memoria RAM 16 GB</li>
-    </ul>
-
-    <a href="https://www.lenovo.com">Página oficial lenovo</a>
-
-    <p>Precio: <i>$1.000.000</i></p>
-
-</div>
-
-<div class="caja">
-    <form action="/submit-notebook" method="post">
-        <label>
-            Comentario:
-            <textarea name="comentario" placeholder="Ingrese su comentario" required></textarea>
-        </label>
-
-        <br>
-
-        <label>
-            1 <input type="radio" name="puntuacion" value="1">
-        </label>
-
-        <label>
-            2 <input type="radio" name="puntuacion" value="2">
-        </label>
-
-        <label>
-            3 <input type="radio" name="puntuacion" value="3">
-        </label>
-
-        <label>
-            4 <input type="radio" name="puntuacion" value="4">
-        </label>
-
-        <label>
-            5 <input type="radio" name="puntuacion" value="5">
-        </label>
-
-        <br>
-
-        <input type="submit" value="Enviar comentario">
-    </form>
-</div>
-
 </body>
 </html>
