@@ -9,7 +9,7 @@ export function agregarListItem(idLista, textoElemento) {
     document.getElementById(idLista).appendChild(item);
 }
 
-export function agregarLinkAItem(idLista, urlImagen, nombre) {
+export function agregarLinkAItem(idLista, urlImagen, nombre, idNotebook) {
     let imagen = document.createElement('img');
     imagen.src = urlImagen;
     imagen.alt = nombre;
@@ -23,6 +23,16 @@ export function agregarLinkAItem(idLista, urlImagen, nombre) {
     link.appendChild(imagen);
     link.appendChild(document.createElement('br'));
     link.appendChild(texto);
+
+    if (localStorage.getItem('notebook-favoritos') != null) {
+        let idFavoritosArray = JSON.parse(localStorage.getItem('notebook-favoritos'));
+
+        if (idFavoritosArray.includes(idNotebook)) {
+            let parrafoFavorito = document.createElement('p');
+            parrafoFavorito.textContent = "Agregado a favorito";
+            link.appendChild(parrafoFavorito);
+        }
+    }
 
     document.getElementById(idLista).appendChild(link);
 }

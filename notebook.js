@@ -1,8 +1,8 @@
 import apiService from './api.js';
 import {agregarListItem, editarTexto} from "./manejadorHtml.js";
 
-async function cargarDatos() {
-    let datos = await apiService.getNotebook(1);
+async function cargarDatos(id) {
+    let datos = await apiService.getNotebook(id);
 
     editarTexto('titulo', datos.title);
     editarTexto('texto-descripcion', datos.description);
@@ -20,4 +20,17 @@ async function cargarDatos() {
 
 }
 
-cargarDatos();
+let idNotebook = 1;
+
+cargarDatos(idNotebook);
+
+document.getElementById('boton-favoritos').addEventListener('click', function () {
+    let idFavoritos = [];
+
+    if (localStorage.getItem('notebook-favoritos') !== null) {
+        idFavoritos = JSON.parse(localStorage.getItem('notebook-favoritos'));
+    }
+
+    idFavoritos.push(idNotebook);
+    localStorage.setItem('notebook-favoritos', JSON.stringify(idFavoritos));
+})
