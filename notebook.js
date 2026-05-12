@@ -20,7 +20,7 @@ async function cargarDatos(id) {
 
 }
 
-let idNotebook = 1;
+let idNotebook = '6a026e7dee62c203e8571373';
 
 cargarDatos(idNotebook);
 
