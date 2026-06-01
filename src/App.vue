@@ -1,23 +1,14 @@
 <script setup>
 import {ref} from "vue";
 
-let notebook = ref({
-  "id": 1,
-  "title": "Notebook HP 14-dq2024la",
-  description: "Computadora HP orientado para gama media. Procesador Intel® Core™ i3 de 11.ª generación.  Windows 10 Home 64.  Unidad de estado sólido PCIe® NVMe™ M.2 de 256 GB . Pantalla de 14 pulgadas.",
-  "image_url": "https://ar-media.hptiendaenlinea.com/catalog/product/8/V/8VW01LA-1_T1615590539.png",
-  "factory_url": "https://www.hp.com/ar-es/shop/notebook-hp-14-dq2024la-3v8j6la.html",
-  "features": [
-    {
-      "name": "RAM",
-      "description": "16 GB"
-    },
-    {
-      "name": "Procesador",
-      "description": "i9"
-    }
-  ]
-})
+let notebook = ref(null);
+
+async function cargarDatos() {
+  const respuesta = await fetch('https://my-json-server.typicode.com/agustinruatta/fake_json_server_db/products/1');
+  notebook.value = await respuesta.json();
+}
+
+cargarDatos();
 
 function agregarAFavoritos() {
   let idFavoritos = [];
@@ -32,7 +23,8 @@ function agregarAFavoritos() {
 </script>
 
 <template>
-  <div id="contenedor-principal">
+  <p v-if="notebook === null">Cargando...</p>
+  <div id="contenedor-principal" v-else>
 
     <h1 id="titulo">{{ notebook.title }}</h1>
 
