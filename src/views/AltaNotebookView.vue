@@ -33,5 +33,9 @@
 </template>
 
 <style scoped>
-
+#formulario-alta-notebook {
+  display: grid;
+  grid-template-columns: 100%;
+  justify-items: start;
+}
 </style>
