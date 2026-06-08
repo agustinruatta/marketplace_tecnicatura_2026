@@ -1,10 +1,19 @@
 <script setup>
 import {ref} from "vue";
+import {useRoute} from "vue-router";
 
+let route = useRoute();
 let notebook = ref(null);
 
 async function cargarDatos() {
-  const respuesta = await fetch('https://my-json-server.typicode.com/agustinruatta/fake_json_server_db/products/1');
+  let id = route.params.id;
+  const respuesta = await fetch('https://my-json-server.typicode.com/agustinruatta/fake_json_server_db/products/' + id);
+
+  if (! respuesta.ok) {
+    alert("Notebook no encontrada");
+    return;
+  }
+
   notebook.value = await respuesta.json();
 }
 
@@ -85,7 +94,7 @@ function agregarAFavoritos() {
         </div>
 
         <div id="boton-comentario">
-          <input  type="submit" value="Enviar comentario">
+          <input type="submit" value="Enviar comentario">
         </div>
 
       </form>

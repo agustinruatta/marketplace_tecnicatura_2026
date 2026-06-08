@@ -17,10 +17,10 @@ cargarNotebooks();
 
   <ul id="listado-notebooks">
     <li class="item-notebook" v-for="(notebook, index) in notebooks" :key="index">
-      <a>
-        <img class="imagen-notebook" :src="notebook.image_url" :alt="notebook.title" />
+      <router-link :to="'/notebook/' + notebook.id">
+        <img class="imagen-notebook" :src="notebook.image_url" :alt="notebook.title"/>
         <i class="titulo-notebook">{{ notebook.title }}</i>
-      </a>
+      </router-link>
 
     </li>
   </ul>

@@ -12,7 +12,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/notebook',
+      path: '/notebook/:id',
       name: 'notebook',
       component: NotebookView,
     },
