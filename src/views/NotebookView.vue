@@ -7,7 +7,7 @@ let notebook = ref(null);
 
 async function cargarDatos() {
   let id = route.params.id;
-  const respuesta = await fetch('https://my-json-server.typicode.com/agustinruatta/fake_json_server_db/products/' + id);
+  const respuesta = await fetch('https://crudcrud.com/api/74d92f809a8d4aa5b8d0261c1dd871a6/notebooks/' + id);
 
   if (! respuesta.ok) {
     alert("Notebook no encontrada");

@@ -4,7 +4,7 @@ import {ref} from "vue";
 let notebooks = ref([]);
 
 async function cargarNotebooks() {
-  const response = await fetch('https://my-json-server.typicode.com/agustinruatta/fake_json_server_db/products/');
+  const response = await fetch('https://crudcrud.com/api/74d92f809a8d4aa5b8d0261c1dd871a6/notebooks');
   notebooks.value = await response.json();
 }
 
@@ -17,7 +17,7 @@ cargarNotebooks();
 
   <ul id="listado-notebooks">
     <li class="item-notebook" v-for="(notebook, index) in notebooks" :key="index">
-      <router-link :to="'/notebook/' + notebook.id">
+      <router-link :to="'/notebook/' + notebook._id">
         <img class="imagen-notebook" :src="notebook.image_url" :alt="notebook.title"/>
         <i class="titulo-notebook">{{ notebook.title }}</i>
       </router-link>
