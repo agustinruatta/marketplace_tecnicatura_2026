@@ -1,5 +1,7 @@
 <script setup>
 import {ref} from "vue";
+import * as yup from "yup";
+import {Form, Field, ErrorMessage} from "vee-validate";
 
 let title = ref("");
 let description = ref("");
@@ -8,9 +10,16 @@ let factoryUrl = ref("");
 let featureName = ref("");
 let featureDescription = ref("");
 
-async function llamarApi(event) {
-  event.preventDefault();
+let schema = yup.object({
+  title: yup.string().max(100).required("Título obligatorio"),
+  description: yup.string().max(1000).required("Description obligatoria"),
+  imageUrl: yup.string().url().required("URL requerida"),
+  factoryUrl: yup.string().url().required("URL requerida"),
+  featureName: yup.string().required("Nombre obligatori0"),
+  featureDescription: yup.string().required("Descripción obligatoria"),
+})
 
+async function llamarApi() {
   let data = {
     title: title.value,
     description: description.value,
@@ -41,33 +50,39 @@ async function llamarApi(event) {
 </script>
 
 <template>
-  <form id="formulario-alta-notebook" @submit="llamarApi">
+  <Form id="formulario-alta-notebook" @submit="llamarApi" :validation-schema="schema">
     <label>
-      Titulo: <input type="text" name="titulo" id="input-titulo" v-model="title" />
+      Titulo: <Field type="text" name="title" id="input-titulo" v-model="title" />
+      <ErrorMessage name="title" />
     </label>
 
     <label>
-      Descripción: <textarea name="descripcion" id="input-descripcion" v-model="description"></textarea>
+      Descripción: <Field name="description" id="input-descripcion" v-model="description" />
+      <ErrorMessage name="description" />
     </label>
 
     <label>
-      Url imagen: <input type="text" name="url-imagen" id="input-url-imagen" v-model="imageUrl">
+      Url imagen: <Field type="text" name="imageUrl" id="input-url-imagen" v-model="imageUrl" />
+      <ErrorMessage name="imageUrl" />
     </label>
 
     <label>
-      URL fabricante: <input type="text" name="url-fabricante" id="input-url-fabricante" v-model="factoryUrl">
+      URL fabricante: <Field type="text" name="factoryUrl" id="input-url-fabricante" v-model="factoryUrl" />
+      <ErrorMessage name="factoryUrl" />
     </label>
 
     <label>
-      Característica: <input type="text" name="caracteristica" id="input-caracteristica" v-model="featureName">
+      Característica: <Field type="text" name="featureName" id="input-caracteristica" v-model="featureName" />
+      <ErrorMessage name="featureName" />
     </label>
 
     <label>
-      Descripción característica: <textarea name="descripcion" id="input-descripcion-caraterística" v-model="featureDescription"></textarea>
+      Descripción característica: <Field name="featureDescription" id="input-descripcion-caraterística" v-model="featureDescription" />
+      <ErrorMessage name="featureDescription" />
     </label>
 
-    <input type="submit" value="Enviar">
-  </form>
+    <Field type="submit" value="Enviar" name="submit" />
+  </Form>
 </template>
 
 <style scoped>
