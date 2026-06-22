@@ -1,6 +1,8 @@
 <script setup>
 import {computed, ref} from "vue";
 import {useRoute} from "vue-router";
+import ImagenNotebook from "@/components/ImagenNotebook.vue";
+import DescripcionNotebook from "@/components/DescripcionNotebook.vue";
 
 let route = useRoute();
 let notebook = ref(null);
@@ -55,23 +57,10 @@ const totalCarroDeCompra = computed(() => {
 
     <h1 id="titulo">{{ notebook.title }}</h1>
 
-    <div id="div-imagen-notebook">
-      <img id="imagen-notebook" class="caja"
-           :src="notebook.image_url"
-           :alt="notebook.title">
-    </div>
+    <ImagenNotebook :title="notebook.title" :image-url="notebook.image_url" />
 
     <div class="caja" id="descripcion">
-      <p id="texto-descripcion">{{ notebook.description }}</p>
-
-      <p>Características</p>
-      <ul id="caracteristicas">
-        <li v-for="(feature, indice) in notebook.features" :key="indice">
-          {{ feature.name }}: {{ feature.description }}
-        </li>
-      </ul>
-
-      <a :href="notebook.factory_url" id="link-pagina">Página oficial</a>
+      <DescripcionNotebook :notebook="notebook" />
 
       <button id="boton-favoritos" @click="agregarAFavoritos">Agregar a favoritos</button>
 
