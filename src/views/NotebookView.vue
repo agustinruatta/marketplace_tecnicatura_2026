@@ -1,15 +1,16 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {useRoute} from "vue-router";
 
 let route = useRoute();
 let notebook = ref(null);
+let carroDeCompra = ref([]);
 
 async function cargarDatos() {
   let id = route.params.id;
-  const respuesta = await fetch('https://crudcrud.com/api/74d92f809a8d4aa5b8d0261c1dd871a6/notebooks/' + id);
+  const respuesta = await fetch(' https://crudcrud.com/api/b185a80bbde14a6e88e5eb8f47a1edd4/notebooks/' + id);
 
-  if (! respuesta.ok) {
+  if (!respuesta.ok) {
     alert("Notebook no encontrada");
     return;
   }
@@ -29,6 +30,23 @@ function agregarAFavoritos() {
   idFavoritos.push(idNotebook);
   localStorage.setItem('notebook-favoritos', JSON.stringify(idFavoritos));
 }
+
+function agregarACarroDeCompras() {
+  carroDeCompra.value.push({
+    title: notebook.value.title,
+    price: 500000
+  })
+}
+
+const totalCarroDeCompra = computed(() => {
+  let total = 0;
+
+  for (let notebookComprada of carroDeCompra.value) {
+    total += notebookComprada.price;
+  }
+
+  return total;
+})
 </script>
 
 <template>
@@ -60,7 +78,17 @@ function agregarAFavoritos() {
     </div>
 
     <div class="caja" id="boton-comprar">
-      <button>Comprar</button>
+      <button @click="agregarACarroDeCompras">Comprar</button>
+
+      <div v-if="carroDeCompra.length > 0">
+        <ul>
+          <li v-for="(notebookComprada, index) in carroDeCompra">
+            {{ notebookComprada.title }}: {{ notebookComprada.price }}
+          </li>
+        </ul>
+
+        <p>{{ totalCarroDeCompra }}</p>
+      </div>
     </div>
 
     <div class="caja" id="feedback">

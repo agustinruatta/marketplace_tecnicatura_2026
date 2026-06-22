@@ -1,22 +1,41 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 let notebooks = ref([]);
 
+let textoFiltro = ref("");
+
 async function cargarNotebooks() {
-  const response = await fetch('https://crudcrud.com/api/74d92f809a8d4aa5b8d0261c1dd871a6/notebooks');
+  const response = await fetch(' https://crudcrud.com/api/b185a80bbde14a6e88e5eb8f47a1edd4/notebooks');
   notebooks.value = await response.json();
 }
 
 cargarNotebooks();
+
+const notebooksFiltradas = computed(() => {
+  if (textoFiltro.value === "") {
+    return notebooks.value;
+  }
+
+  debugger;
+
+  notebooks.value.filter((notebook) => {
+    return notebook.value.title.includes(textoFiltro.value);
+  })
+})
 
 </script>
 
 <template>
   <h1>Mercado No Libre - El peor mercado</h1>
 
+  <label>
+    Buscar:
+    <input type="text" v-model="textoFiltro" />
+  </label>
+
   <ul id="listado-notebooks">
-    <li class="item-notebook" v-for="(notebook, index) in notebooks" :key="index">
+    <li class="item-notebook" v-for="(notebook, index) in notebooksFiltradas" :key="index">
       <router-link :to="'/notebook/' + notebook._id">
         <img class="imagen-notebook" :src="notebook.image_url" :alt="notebook.title"/>
         <i class="titulo-notebook">{{ notebook.title }}</i>
