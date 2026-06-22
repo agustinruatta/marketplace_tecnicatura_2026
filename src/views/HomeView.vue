@@ -17,10 +17,8 @@ const notebooksFiltradas = computed(() => {
     return notebooks.value;
   }
 
-  debugger;
-
-  notebooks.value.filter((notebook) => {
-    return notebook.value.title.includes(textoFiltro.value);
+  return notebooks.value.filter((notebook) => {
+    return notebook.title.includes(textoFiltro.value);
   })
 })
 
