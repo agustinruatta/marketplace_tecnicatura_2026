@@ -3,6 +3,8 @@ import {computed, ref} from "vue";
 import {useRoute} from "vue-router";
 import ImagenNotebook from "@/components/ImagenNotebook.vue";
 import DescripcionNotebook from "@/components/DescripcionNotebook.vue";
+import BotonCompra from "@/components/BotonCompra.vue";
+import CarroDeCompras from "@/components/CarroDeCompras.vue";
 
 let route = useRoute();
 let notebook = ref(null);
@@ -22,6 +24,13 @@ async function cargarDatos() {
 
 cargarDatos();
 
+function notebookAgregada(datos) {
+  carroDeCompra.value.push({
+    title: datos.comment,
+    price: datos.price,
+  });
+}
+
 function agregarAFavoritos() {
   let idFavoritos = [];
 
@@ -33,22 +42,6 @@ function agregarAFavoritos() {
   localStorage.setItem('notebook-favoritos', JSON.stringify(idFavoritos));
 }
 
-function agregarACarroDeCompras() {
-  carroDeCompra.value.push({
-    title: notebook.value.title,
-    price: 500000
-  })
-}
-
-const totalCarroDeCompra = computed(() => {
-  let total = 0;
-
-  for (let notebookComprada of carroDeCompra.value) {
-    total += notebookComprada.price;
-  }
-
-  return total;
-})
 </script>
 
 <template>
@@ -60,15 +53,7 @@ const totalCarroDeCompra = computed(() => {
     <ImagenNotebook :title="notebook.title" :image-url="notebook.image_url" />
 
     <div id="carro-compras" class="caja">
-      <div v-if="carroDeCompra.length > 0">
-        <ul>
-          <li v-for="(notebookComprada, index) in carroDeCompra">
-            {{ notebookComprada.title }}: {{ notebookComprada.price }}
-          </li>
-        </ul>
-
-        <p>{{ totalCarroDeCompra }}</p>
-      </div>
+      <CarroDeCompras :carro-de-compras="carroDeCompra" />
     </div>
 
     <div class="caja" id="descripcion">
@@ -79,7 +64,7 @@ const totalCarroDeCompra = computed(() => {
     </div>
 
     <div class="caja" id="boton-comprar">
-      <button @click="agregarACarroDeCompras">Comprar</button>
+      <BotonCompra :title="notebook.title" @notebookAgregada="notebookAgregada" />
     </div>
 
     <div class="caja" id="feedback">
