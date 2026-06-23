@@ -20,5 +20,9 @@ defineProps({
 </template>
 
 <style scoped>
-
+#div-imagen-notebook {
+  grid-area: imagen;
+  width: 100%;
+  height: 100%;
+}
 </style>

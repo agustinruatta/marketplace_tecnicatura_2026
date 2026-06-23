@@ -59,16 +59,7 @@ const totalCarroDeCompra = computed(() => {
 
     <ImagenNotebook :title="notebook.title" :image-url="notebook.image_url" />
 
-    <div class="caja" id="descripcion">
-      <DescripcionNotebook :notebook="notebook" />
-
-      <button id="boton-favoritos" @click="agregarAFavoritos">Agregar a favoritos</button>
-
-    </div>
-
-    <div class="caja" id="boton-comprar">
-      <button @click="agregarACarroDeCompras">Comprar</button>
-
+    <div id="carro-compras" class="caja">
       <div v-if="carroDeCompra.length > 0">
         <ul>
           <li v-for="(notebookComprada, index) in carroDeCompra">
@@ -78,6 +69,17 @@ const totalCarroDeCompra = computed(() => {
 
         <p>{{ totalCarroDeCompra }}</p>
       </div>
+    </div>
+
+    <div class="caja" id="descripcion">
+      <DescripcionNotebook :notebook="notebook" />
+
+      <button id="boton-favoritos" @click="agregarAFavoritos">Agregar a favoritos</button>
+
+    </div>
+
+    <div class="caja" id="boton-comprar">
+      <button @click="agregarACarroDeCompras">Comprar</button>
     </div>
 
     <div class="caja" id="feedback">
@@ -128,6 +130,7 @@ const totalCarroDeCompra = computed(() => {
   justify-content: stretch;
   grid-template-areas:
                     "titulo titulo titulo"
+                    "imagen imagen carro-compras"
             "imagen imagen descripcion"
             "imagen imagen boton-comprar"
         "feedback feedback feedback"
@@ -137,10 +140,8 @@ const totalCarroDeCompra = computed(() => {
   grid-area: titulo;
 }
 
-#div-imagen-notebook {
-  grid-area: imagen;
-  width: 100%;
-  height: 100%;
+#carro-compras {
+  grid-area: carro-compras;
 }
 
 #descripcion {
